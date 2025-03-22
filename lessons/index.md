@@ -1,0 +1,5 @@
+---
+permalink: /lessons/
+---
+
+# Lessons

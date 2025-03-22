@@ -2,16 +2,39 @@
     --background-color: #434343;
     --primary: #e06666;
     --text: #f3f3f3;
+    --max-text-width: 900px;
 }
 
 body {
+    margin: 0;
     background-color: var(--background-color);
     color: var(--text);
     font-family: 'Courier New', Courier, monospace;
     font-size: x-large;
 }
 
+h1, h2, h3, h4, h5, h6, p {
+    max-width: var(--max-text-width);
+}
+
 a {
     text-decoration: underline;
     color: var(--primary);
+}
+
+ol, ul {
+    max-width: var(--max-text-width);
+}
+
+nav {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+}
+
+.content {
+    margin-left: 300px;
+    height: 100%;
+    position: fixed;
+    overflow-y: scroll;
 }

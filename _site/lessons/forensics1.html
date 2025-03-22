@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forensics 1</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <nav>
+    <ul>
+        <li><a href="/lessons/">lessons</a></li>
+        <li><a>coops</a></li>
+        <li><a>blog</a></li>
+        <li><a>writeups</a></li>
+        <li><a>resources</a></li>
+        <li><a>about</a></li>
+    </ul>
+</nav>
+    <div class="content">
+        <h1 id="forensics-1">Forensics 1</h1>
+
+<p>Drafted with Claude, prompted and edited by humans</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Forensics challenges in Capture The Flag (CTF) competitions test your ability to discover hidden information within files, systems, or data. These challenges simulate real-world digital forensics scenarios where investigators must recover evidence from digital artifacts. This guide covers the fundamental concepts and tools you’ll need to tackle forensics challenges.
+Key Forensics Areas</p>
+
+<h2 id="encodings">Encodings</h2>
+
+<p>Encodings are methods of representing data in different formats:</p>
+
+<ul>
+  <li><strong>Binary</strong>: Raw 1s and 0s representation. A single binary character is a bit and eight are bytes. Refer to standard metric prefixes for larger sizes (ie. kilobyte indicates 1,000 bytes… or 1,024).</li>
+  <li><strong>Base64</strong>: Common encoding that converts binary data to ASCII text. It often ends with equals signs = but not always.</li>
+  <li><strong>Hexadecimal</strong>: Represents binary data using the characters 0-9 and A-F. It is common to do file analysis with hex editors because hexadecimal is a convenient way to represent binary data—a byte can be represented with only two hex characters.</li>
+  <li><strong>ASCII/ANSI/Unicode</strong>: Character encoding standards. When you open a file in Notepad, you are seeing the data interpreted with the ANSI encoding. ASCII and ANSI cover the standard characters and operations you see on your keyboard (a-z, A-Z, 0-9, !, [backspace], etc.) while Unicode is an extension for other languages.</li>
+  <li><strong>URL Encoding</strong>: Converts special characters for use in URLs</li>
+</ul>
+
+<p>It is important to note that encoding is not the same thing as encrypting. The purpose of encryption is to make the data unreadable to outsiders while encoding is just another way to format the data.</p>
+
+<p>When approaching an encoding challenge, identify the encoding type first, then use the appropriate tool to decode it. To identify the encoding method, consider what characters are being used and note if the data seems to be random or somehow structured. Multiple layers of encoding are common.</p>
+
+<p>Try playing with <a href="https://cyberchef.org/">CyberChef</a> which makes converting between encodings easy.</p>
+
+<h2 id="file-formats">File Formats</h2>
+
+<p>You’ve probably heard of file types: PDF, JPG, PNG, DOCX, etc. All of these formats specify how programs should be formatted for programs to interpret—ie. a JPG file is meant to be read as a picture, not a document.</p>
+
+<p>A file extension, the last part of a filename, can technically be set to anything. For example, the file hello.png has the extension .png . However, I could rename the file to hello.docx and then Microsoft Word may try to open the file. Of course, it would not work since it would be reading the data wrong.</p>
+
+<p>Files can contain hidden data or be disguised as different types:</p>
+
+<ul>
+  <li><strong>File signatures/magic bytes</strong>: First few bytes that identify a file type</li>
+  <li><strong>File extension manipulation</strong>: Files with incorrect extensions</li>
+  <li><strong>File carving</strong>: Extracting files from within other files</li>
+  <li><strong>Corrupted files</strong>: Intentionally damaged files that need repair</li>
+</ul>
+
+<p>Always check if a file’s actual type matches its extension using tools like the file command which will check the magic bytes for the file format. You can use hex editors to reveal a file’s true structure. A common Linux hex editor is xxd, though online ones are often more featureful.</p>
+
+<h2 id="metadata">Metadata</h2>
+
+<p>Metadata is “data about data” and can contain hidden information:</p>
+
+<p>EXIF data: Found in images, including camera details, GPS coordinates, timestamps
+Document properties: Author, creation date, revisions in documents
+File system metadata: Creation, modification, access times</p>
+
+<p>Creators often hide flags in metadata fields that aren’t immediately visible when viewing a file.
+Steganography
+Steganography is the practice of hiding data within other data:</p>
+
+<p>Image steganography: Hiding data in image pixels, often in least significant bits
+Audio steganography: Concealing data in audio files, sometimes audible only in spectrograms
+Text steganography: Using invisible characters, specific letter patterns, or whitespace</p>
+
+<p>Stego challenges may require password extraction from other parts of the challenge. For years, I have referred to 0xRick’s list of steganography tools for common steg-solving programs. Aperisolve is another tool which will automate many steganography and analysis operations.
+Disk Image and Memory Forensics
+These challenges involve analyzing captured system states:</p>
+
+<p>Disk images: Complete copies of storage devices containing file systems, deleted files. They can be analyzed with tools like Autopsy.
+Memory dumps: Snapshots of system RAM, containing running processes, passwords in cleartext. An appropriate tool for memory dumps is Volatility.
+Registry analysis: Windows registry keys and values that may contain important information
+Log analysis: System and application logs that record events</p>
+
+<p>These challenges most closely resemble professional digital forensics work. We will not be going in depth on disk image forensics and memory forensics, though it can be fun to learn.</p>
+
+<p>Often, the challenges will consist of looking through dumps for files, programs, and running processes containing cool information.</p>
+
+<h2 id="tools">Tools</h2>
+
+<p>CyberChef - Quickly convert encodings
+0xRick Steganography - List of steganography commands
+Aperisolve - Automate several basic steganography tasks
+Autopsy - Analyze disk images
+Volatility - Analyze memory dumps
+HexEd.it - Online hex editor</p>
+
+<h2 id="general-approach-to-forensics-challenges">General Approach to Forensics Challenges</h2>
+
+<ol>
+  <li>Identify the challenge type: Determine what kind of forensics challenge you’re facing.</li>
+  <li>Examine the file properties: Check file type, size, and metadata.</li>
+  <li>Use appropriate tools: Select tools based on challenge type.</li>
+  <li>Think creatively: CTF creators often use misdirection; look beyond the obvious.</li>
+  <li>Document your process: Track what you’ve tried to avoid repetition.</li>
+</ol>
+
+<p>Remember, forensics challenges often combine multiple concepts. The best approach is methodical analysis using appropriate tools while documenting your steps.</p>
+
+<h2 id="optional-readings">Optional Readings</h2>
+
+<p>CTF Handbook - Forensics</p>
+
+    </div>
+</body>
+</html>
