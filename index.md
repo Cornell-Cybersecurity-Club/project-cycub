@@ -1,3 +1,4 @@
-# Index
-
-Some text here
+---
+layout: index
+title: Welcome
+---

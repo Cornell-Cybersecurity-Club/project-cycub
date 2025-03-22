@@ -1,3 +1,0 @@
-# Index
-
-Some text here
