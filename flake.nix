@@ -32,7 +32,7 @@
 
           shellHook = ''
             echo "Jekyll environment loaded!"
-            echo "Run 'bundle exec jekyll serve' to start the development server"
+            echo "Run 'bundle install' then 'bundle exec jekyll serve' to start the development server"
           '';
         };
       }

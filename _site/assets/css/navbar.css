@@ -1,0 +1,34 @@
+nav {
+    position: fixed;
+    width: var(--nav-margin-left);
+    height: 100%;
+}
+
+.home-link {
+    top: 0;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    height: var(--nav-margin-left);
+    justify-content: center;
+    align-items: center;
+}
+
+.home-link img {
+    object-fit: cover;
+}
+
+.page-links {
+    position: absolute;
+    bottom: 0;
+    list-style: none;
+    padding: 20px;
+    margin: 0;
+    font-size: 32px;
+}
+
+.page-links a {
+    text-decoration: none;
+    color: var(--text);
+}
